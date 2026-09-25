@@ -176,6 +176,14 @@ button:focus-visible {
   color: #596579;
 }
 
+.score-disclaimer {
+  margin: 10px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid #dfe4ec;
+  font-size: 0.85rem;
+  color: #6b7484;
+}
+
 .results-message {
   margin-bottom: 0;
   padding: 16px;
