@@ -6,39 +6,50 @@ A browser-based prototype that compares a resume with a job description and prep
 
 Job Match Analyzer helps job seekers see how well their resume fits a job.  
 Users paste their resume and a job description, and the tool shows their job-match analysis.  
-Version 1 focuses on match score, matching skills, and skills requested by the job but not detected in the resume.
+The prototype focuses on detected skill match, matched skills, and skills requested by the job but not detected in the resume.
 
 ## Current status
 
-**Sprint 1: Version 1 matching engine**
+**Sprint 3: Version 2 improvements after testing Version 1**
 
-The prototype now detects supported technical skills in both inputs, calculates a transparent match score, and separates matched skills from skills to review.
+Version 1 was tested against normal, edge-case, alias, and deliberately difficult inputs. Testing exposed three practical weaknesses:
+
+- `JS` did not match `JavaScript`
+- `Node` did not match `Node.js`
+- several common technologies were not in the supported catalog, which could make a score look stronger than the full job description justified
+
+Version 2 addresses those findings by expanding alias recognition, adding more common skills, and making the score wording more explicit.
 
 The project remains fully browser-based. No resume or job-description text is sent to a backend service.
 
-## Version 1 features
+## Version 2 features
 
 - Paste resume text
 - Paste job-description text
-- Detect a practical catalog of common technical skills
-- Recognize a limited set of common aliases such as AWS / Amazon Web Services, Kubernetes / K8s, and PostgreSQL / Postgres
-- Calculate a transparent match score
+- Detect a broader catalog of common technical skills
+- Recognize common aliases such as AWS / Amazon Web Services, Kubernetes / K8s, PostgreSQL / Postgres, JavaScript / JS, Node.js / Node, and Generative AI / GenAI
+- Detect additional technologies including .NET, Kafka, Apache Spark, Snowflake, Apache Airflow, Linux, CI/CD, REST APIs, Prometheus, Grafana, CloudWatch, EC2, S3, AWS Lambda, LangGraph, Qdrant, and OpenTelemetry
+- Calculate a transparent detected-skill match
 - Show matched skills
 - Show skills requested by the job but not detected in the resume
 - Handle empty input safely
-- Avoid showing a misleading score when no supported job skills are detected
+- Avoid showing a score when no supported job skills are detected
 
 ## How the score works
 
-The score is based only on supported skills detected in the job description:
+The score is based only on supported technical skills detected in the job description:
 
 ```text
 matched detected job skills / total detected job skills × 100
 ```
 
-Example: if the job description contains four supported skills and three are also detected in the resume, the score is 75%.
+Example: if the job description contains four supported skills and three are also detected in the resume, the detected-skill match is 75%.
 
-This is a simple prototype score. It is not a hiring prediction and does not measure overall candidate quality.
+The result is deliberately labeled **Detected skill match**. It is not an overall suitability score, hiring prediction, or measure of candidate quality.
+
+## Version 1 to Version 2 iteration
+
+The mission requires improving the prototype after using it. The Version 1 test pass found that aliases and unsupported technologies could distort the result. Version 2 was changed specifically in response to those findings rather than by adding unrelated features.
 
 ## Tech stack
 

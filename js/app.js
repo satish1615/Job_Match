@@ -3,7 +3,8 @@ const SKILL_CATALOG = [
   { name: 'Java', patterns: [/\bjava\b/i] },
   { name: 'C++', patterns: [/(^|[^a-z0-9])c\+\+(?=$|[^a-z0-9])/i] },
   { name: 'C#', patterns: [/(^|[^a-z0-9])c#(?=$|[^a-z0-9])/i] },
-  { name: 'JavaScript', patterns: [/\bjavascript\b/i] },
+  { name: '.NET', patterns: [/(^|[^a-z0-9])\.net(?=$|[^a-z0-9])/i, /\bdotnet\b/i] },
+  { name: 'JavaScript', patterns: [/\bjavascript\b/i, /(^|[^a-z0-9.])js(?=$|[^a-z0-9.])/i] },
   { name: 'TypeScript', patterns: [/\btypescript\b/i] },
   { name: 'HTML', patterns: [/\bhtml5?\b/i] },
   { name: 'CSS', patterns: [/\bcss3?\b/i] },
@@ -11,27 +12,43 @@ const SKILL_CATALOG = [
   { name: 'AWS', patterns: [/\baws\b/i, /\bamazon web services\b/i] },
   { name: 'Azure', patterns: [/\bazure\b/i, /\bmicrosoft azure\b/i] },
   { name: 'GCP', patterns: [/\bgcp\b/i, /\bgoogle cloud(?: platform)?\b/i] },
+  { name: 'EC2', patterns: [/\bec2\b/i, /\bamazon ec2\b/i] },
+  { name: 'S3', patterns: [/(^|[^a-z0-9])s3(?=$|[^a-z0-9])/i, /\bamazon s3\b/i] },
+  { name: 'AWS Lambda', patterns: [/\baws lambda\b/i, /\bamazon lambda\b/i, /\blambda functions?\b/i] },
+  { name: 'CloudWatch', patterns: [/\bcloudwatch\b/i, /\baws cloudwatch\b/i] },
   { name: 'Docker', patterns: [/\bdocker\b/i] },
   { name: 'Kubernetes', patterns: [/\bkubernetes\b/i, /\bk8s\b/i] },
   { name: 'Terraform', patterns: [/\bterraform\b/i] },
   { name: 'Jenkins', patterns: [/\bjenkins\b/i] },
+  { name: 'Linux', patterns: [/\blinux\b/i] },
+  { name: 'CI/CD', patterns: [/(^|[^a-z0-9])ci\s*\/\s*cd(?=$|[^a-z0-9])/i, /\bcontinuous integration\b/i, /\bcontinuous (?:delivery|deployment)\b/i] },
   { name: 'Git', patterns: [/(^|[^a-z0-9])git(?=$|[^a-z0-9])/i] },
   { name: 'GitHub Actions', patterns: [/\bgithub actions?\b/i] },
+  { name: 'REST API', patterns: [/\brest(?:ful)?\s+apis?\b/i] },
   { name: 'FastAPI', patterns: [/\bfastapi\b/i] },
   { name: 'Flask', patterns: [/\bflask\b/i] },
   { name: 'Django', patterns: [/\bdjango\b/i] },
   { name: 'React', patterns: [/\breact(?:\.js|js)?\b/i] },
-  { name: 'Node.js', patterns: [/\bnode(?:\.js|js)\b/i] },
+  { name: 'Node.js', patterns: [/\bnode(?:\.js|js)?\b/i] },
   { name: 'MySQL', patterns: [/\bmysql\b/i] },
   { name: 'PostgreSQL', patterns: [/\bpostgresql\b/i, /\bpostgres\b/i] },
   { name: 'MongoDB', patterns: [/\bmongodb\b/i] },
   { name: 'Redis', patterns: [/\bredis\b/i] },
+  { name: 'Kafka', patterns: [/\bkafka\b/i, /\bapache kafka\b/i] },
+  { name: 'Apache Spark', patterns: [/\bapache spark\b/i, /\bpyspark\b/i] },
+  { name: 'Snowflake', patterns: [/\bsnowflake\b/i] },
+  { name: 'Apache Airflow', patterns: [/\bapache airflow\b/i, /\bairflow\b/i] },
+  { name: 'Prometheus', patterns: [/\bprometheus\b/i] },
+  { name: 'Grafana', patterns: [/\bgrafana\b/i] },
+  { name: 'OpenTelemetry', patterns: [/\bopentelemetry\b/i, /\botel\b/i] },
   { name: 'Machine Learning', patterns: [/\bmachine[- ]learning\b/i, /\bml\b/i] },
   { name: 'Deep Learning', patterns: [/\bdeep[- ]learning\b/i] },
   { name: 'Generative AI', patterns: [/\bgenerative ai\b/i, /\bgenai\b/i, /\bgen ai\b/i] },
   { name: 'LLM', patterns: [/\bllms?\b/i, /\blarge language models?\b/i] },
   { name: 'RAG', patterns: [/\brag\b/i, /\bretrieval[- ]augmented generation\b/i] },
   { name: 'LangChain', patterns: [/\blangchain\b/i] },
+  { name: 'LangGraph', patterns: [/\blanggraph\b/i] },
+  { name: 'Qdrant', patterns: [/\bqdrant\b/i] },
   { name: 'TensorFlow', patterns: [/\btensorflow\b/i] },
   { name: 'PyTorch', patterns: [/\bpytorch\b/i] },
 ];
@@ -129,7 +146,7 @@ function renderAnalysis(result) {
     matchedSkillsSection.hidden = true;
     missingSkillsSection.hidden = true;
     resultsMessage.hidden = false;
-    resultsMessage.textContent = "We couldn't detect enough supported skills in this job description to calculate a match score.";
+    resultsMessage.textContent = "We couldn't detect enough supported skills in this job description to calculate a detected skill match.";
     return;
   }
 
