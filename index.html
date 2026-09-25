@@ -12,7 +12,7 @@
     <section class="hero" aria-labelledby="page-title">
       <p class="eyebrow">Job Match Analyzer</p>
       <h1 id="page-title">See how your resume fits the role</h1>
-      <p class="subtitle">Paste your resume and a job description to prepare a clear skill-match analysis.</p>
+      <p class="subtitle">Paste your resume and a job description to compare the technical skills detected in both.</p>
     </section>
 
     <section class="analyzer-card" aria-label="Job match analyzer form">
@@ -36,9 +36,29 @@
       </div>
     </section>
 
-    <section id="resultsSection" class="results-card" aria-labelledby="results-title" hidden>
-      <h2 id="results-title">Analysis</h2>
-      <p id="resultsMessage"></p>
+    <section id="resultsSection" class="results-card" aria-labelledby="results-title" aria-live="polite" hidden>
+      <h2 id="results-title">Your match</h2>
+
+      <div id="scorePanel" class="score-panel">
+        <p id="matchScore" class="match-score">0%</p>
+        <p id="matchSummary" class="match-summary"></p>
+      </div>
+
+      <p id="resultsMessage" class="results-message" hidden></p>
+
+      <div class="skill-results-grid">
+        <section id="matchedSkillsSection" class="skill-result" aria-labelledby="matched-title">
+          <h3 id="matched-title">Matched skills</h3>
+          <p class="result-hint">Detected in both the job description and your resume.</p>
+          <ul id="matchedSkillsList" class="skill-list"></ul>
+        </section>
+
+        <section id="missingSkillsSection" class="skill-result" aria-labelledby="missing-title">
+          <h3 id="missing-title">Skills to review</h3>
+          <p class="result-hint">Requested by the job but not detected in your resume.</p>
+          <ul id="missingSkillsList" class="skill-list"></ul>
+        </section>
+      </div>
     </section>
   </main>
 
